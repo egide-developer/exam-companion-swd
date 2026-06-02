@@ -1,0 +1,13 @@
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Backend
+backend/node_modules
+backend/.env
+backend/dist
+
+# Frontend dist
+frontend/dist

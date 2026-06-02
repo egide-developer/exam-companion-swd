@@ -1,11 +1,15 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import {
   LayoutDashboard,
   CheckSquare,
   Bell,
   FolderTree,
   FileText,
+  LogIn,
+  LogOut,
+  User,
 } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -16,6 +20,8 @@ const navItems = [
 ]
 
 export default function Sidebar({ open, setOpen }) {
+  const { user, logout } = useAuth()
+
   return (
     <>
       {open && (
@@ -49,9 +55,32 @@ export default function Sidebar({ open, setOpen }) {
             </NavLink>
           ))}
         </nav>
-        <div className="border-t border-gray-200 p-4">
-          <p className="text-xs text-gray-400">Universal Exam Checklist</p>
-          <p className="text-xs text-gray-400">Apply to any project</p>
+        <div className="border-t border-gray-200 p-4 space-y-3">
+          {user ? (
+            <>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <User className="h-4 w-4" />
+                <span className="truncate">{user.name || user.email}</span>
+              </div>
+              <button
+                type="button"
+                onClick={logout}
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/signin"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 transition-colors"
+            >
+              <LogIn className="h-4 w-4" />
+              Sign In
+            </Link>
+          )}
         </div>
       </aside>
     </>

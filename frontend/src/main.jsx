@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import { ChecklistProvider } from './context/ChecklistContext.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <ChecklistProvider>
-        <App />
-      </ChecklistProvider>
+      <AuthProvider>
+        <ChecklistProvider>
+          <App />
+        </ChecklistProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 )
